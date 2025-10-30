@@ -83,5 +83,35 @@
         }
       }
     }
+    ,
+    {
+      "name": "Auth - Forgot (request OTP)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"test@gmail.com\"\n}" },
+        "url": { "raw": "{{base_url}}/api/auth/forgot", "host": ["{{base_url}}"], "path": ["api","auth","forgot"] }
+      }
+    },
+    {
+      "name": "Auth - Verify OTP",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"test@gmail.com\",\n  \"otp\": \"123456\"\n}" },
+        "url": { "raw": "{{base_url}}/api/auth/verify-otp", "host": ["{{base_url}}"], "path": ["api","auth","verify-otp"] }
+      }
+    },
+    {
+      "name": "Auth - Reset Password",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"test@gmail.com\",\n  \"reset_token\": \"<paste_token_here>\",\n  \"password\": \"NewPass123!\"\n}" },
+        "url": { "raw": "{{base_url}}/api/auth/reset", "host": ["{{base_url}}"], "path": ["api","auth","reset"] }
+      }
+    }
   ]
 }
