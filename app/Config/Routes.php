@@ -2,10 +2,17 @@
 
 use CodeIgniter\Router\RouteCollection;
 
-/**
- * @var RouteCollection $routes
- */
-// $routes->get('/', 'Home::index');
+$routes->options('(:any)', function() {
+    $response = service('response');
+    $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
+
+    return $response
+        ->setStatusCode(200)
+        ->setHeader('Access-Control-Allow-Origin', $origin)
+        ->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+        ->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
+        ->setHeader('Access-Control-Allow-Credentials', 'true');
+});
 
 $routes->group('api', function($routes) {
     // 🔹 Authentication Routes
