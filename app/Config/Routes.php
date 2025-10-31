@@ -23,7 +23,7 @@ $routes->group('api', function($routes) {
     // 🔹 Protected routes (JWT required)
     $routes->group('', ['filter' => 'auth'], function($routes) {
 
-        // Example: Authenticated user details
+        // Example: Authenticated user detailshere
         $routes->get('auth/me', 'AuthController::me');
 
         // Example: admin-only (check inside controller)
@@ -51,6 +51,18 @@ $routes->group('api', function($routes) {
     $routes->post('tasks', 'TaskController::create');              // Create new task
     $routes->put('tasks/(:num)', 'TaskController::update/$1');     // Update
     $routes->delete('tasks/(:num)', 'TaskController::delete/$1');  // Delete
+
+
+
+
+    // this is for add task comments 
+    // Task comments
+    $routes->post('tasks/comments', 'TaskCommentController::create');
+    $routes->get('tasks/comments/(:num)', 'TaskCommentController::getByTask/$1');
+    // Task attachments
+    $routes->post('tasks/attachments/upload', 'TaskAttachmentController::upload');
+    $routes->get('tasks/attachments/(:num)', 'TaskAttachmentController::getByTask/$1');
+
 
     });
 });
