@@ -45,12 +45,12 @@ $routes->group('api', function($routes) {
 
 
         // Task Management Routes (CRUD)
-          $routes->get('tasks', 'TaskController::index');                // All tasks
-    $routes->get('tasks/(:num)', 'TaskController::show/$1');       // Single task
-    $routes->get('tasks/developer/(:num)', 'TaskController::getByDeveloper/$1'); // Tasks by developer
-    $routes->post('tasks', 'TaskController::create');              // Create new task
-    $routes->put('tasks/(:num)', 'TaskController::update/$1');     // Update
-    $routes->delete('tasks/(:num)', 'TaskController::delete/$1');  // Delete
+        $routes->get('tasks', 'TaskController::index');                // All tasks
+        $routes->get('tasks/(:num)', 'TaskController::show/$1');       // Single task
+        $routes->get('tasks/developer/(:num)', 'TaskController::getByDeveloper/$1'); // Tasks by developer
+        $routes->post('tasks', 'TaskController::create');              // Create new task
+        $routes->put('tasks/(:num)', 'TaskController::update/$1');     // Update
+        $routes->delete('tasks/(:num)', 'TaskController::delete/$1');  // Delete
 
 
 
@@ -62,7 +62,35 @@ $routes->group('api', function($routes) {
     // Task attachments
     $routes->post('tasks/attachments/upload', 'TaskAttachmentController::upload');
     $routes->get('tasks/attachments/(:num)', 'TaskAttachmentController::getByTask/$1');
+    
+        // Task time logs
+    $routes->post('tasks/time-log', 'TaskTimeLogController::logTime');
+    $routes->get('tasks/time-log/(:num)', 'TaskTimeLogController::getByTask/$1');
+
+
+            // ✅ 🔹 Comments (Threaded) & Activity Logs
+    $routes->group('comments', function($routes) {
+        $routes->post('create', 'TaskCommentController::create');
+        $routes->get('task/(:num)', 'TaskCommentController::getByTask/$1');
+    });
+
+
+    $routes->group('activity', function($routes) {
+        $routes->get('/', 'ActivityLogController::index');
+        $routes->get('task/(:num)', 'ActivityLogController::getByTask/$1');
+    });
+
+
+
+    // Dashboard Routes
+
+
+$routes->get('dashboard/overview', 'DashboardController::overview');
+$routes->get('dashboard/productivity', 'DashboardController::productivityGraph');
+$routes->get('dashboard/project-progress', 'DashboardController::projectProgressGraph');
+
 
 
     });
 });
+

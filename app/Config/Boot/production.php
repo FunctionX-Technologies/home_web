@@ -1,5 +1,12 @@
 <?php
 
+// here i added this for production environment variable
+
+// use Dotenv\Dotenv;
+
+// $dotenv = Dotenv::createImmutable(FCPATH);
+// $dotenv->safeLoad();
+
 /*
  |--------------------------------------------------------------------------
  | ERROR DISPLAY
