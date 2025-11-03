@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use App\Models\TaskModel;
 use CodeIgniter\RESTful\ResourceController;
+// here add this for provide NotificationService 
+use App\Libraries\NotificationService;
+
 
 class TaskController extends ResourceController
 {
@@ -37,6 +40,14 @@ class TaskController extends ResourceController
         }
 
         $taskModel->insert($data);
+
+        // here i add this for notification line 44 to 50
+        // ✅ Send notification to assigned developer
+    $notification = new NotificationService();
+    $title = "New Task Assigned: " . $data['title'];
+    $message = "You have been assigned to a new task in project ID {$data['project_id']}.";
+    $url = base_url("/tasks"); // or frontend route
+    $notification->notify($data['assigned_to'], 'task_assigned', $title, $message, $url, true);
 
         return $this->respondCreated([
             'status' => 'success',

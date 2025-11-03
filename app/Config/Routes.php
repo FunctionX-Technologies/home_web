@@ -89,8 +89,25 @@ $routes->get('dashboard/overview', 'DashboardController::overview');
 $routes->get('dashboard/productivity', 'DashboardController::productivityGraph');
 $routes->get('dashboard/project-progress', 'DashboardController::projectProgressGraph');
 
+// this is for report generation pf pdf and excel
+// Reports
+$routes->group('reports', function($routes) {
+    $routes->get('projects/excel', 'ReportController::exportProjectsExcel');
+    $routes->get('tasks/pdf', 'ReportController::exportTasksPDF');
+});
+
+
+
+
+// here i add this for notification system
+
+// Notifications routes
+$routes->get('notifications', 'NotificationController::index');
+$routes->get('notifications/unread-count', 'NotificationController::unreadCount');
+$routes->put('notifications/read/(:num)', 'NotificationController::markRead/$1');
 
 
     });
 });
+
 
