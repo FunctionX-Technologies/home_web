@@ -84,6 +84,14 @@ class TaskController extends ResourceController
         }
 
         $taskModel->update($id, $data);
+    // here i add this for notification in email when task updates line 87 to 94
+    // send notification to assigned devloper
+        $notification = new NotificationService();
+        $title = "Task Updated: " . $data['title'];
+        $message = "You have been updated in project ID {$data['project_id']}.";
+        $url = base_url("/tasks"); // or frontend route
+        $notification->notify($data['assigned_to'], 'task_assigned', $title, $message, $url, true);
+
 
         // 🔁 Auto-update project progress after updating status
         $this->updateProjectProgress($taskModel->find($id)['project_id']);

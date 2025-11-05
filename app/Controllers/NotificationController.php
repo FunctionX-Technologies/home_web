@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+
 use App\Controllers\BaseController;
 use App\Models\NotificationModel;
 
@@ -7,7 +8,13 @@ class NotificationController extends BaseController
 {
     public function index()
     {
-        $userId = $this->request->user->id ?? null; // from JWT filter
+        helper('current_user'); // if not autoloaded
+        $userId = current_user_id();
+
+        if (! $userId) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'User ID not found in token'])->setStatusCode(401);
+        }
+
         $model = new NotificationModel();
 
         $notifications = $model->where('user_id', $userId)
@@ -19,7 +26,13 @@ class NotificationController extends BaseController
 
     public function unreadCount()
     {
-        $userId = $this->request->user->id ?? null;
+        helper('current_user');
+        $userId = current_user_id();
+
+        if (! $userId) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'User ID not found in token'])->setStatusCode(401);
+        }
+
         $model = new NotificationModel();
         $count = $model->where('user_id', $userId)->where('is_read', 0)->countAllResults();
 
@@ -28,7 +41,13 @@ class NotificationController extends BaseController
 
     public function markRead($id = null)
     {
-        $userId = $this->request->user->id ?? null;
+        helper('current_user');
+        $userId = current_user_id();
+
+        if (! $userId) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'User ID not found in token'])->setStatusCode(401);
+        }
+
         $model = new NotificationModel();
         $model->where('user_id', $userId)->where('id', $id)->set(['is_read' => 1])->update();
 

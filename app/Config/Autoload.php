@@ -41,6 +41,8 @@ class Autoload extends AutoloadConfig
         APP_NAMESPACE => APPPATH,
     ];
 
+
+    // $autoload['libraries']= array('database','email','session');
     /**
      * -------------------------------------------------------------------
      * Class Map

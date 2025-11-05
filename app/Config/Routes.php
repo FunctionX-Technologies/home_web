@@ -20,6 +20,10 @@ $routes->group('api', function($routes) {
     $routes->get('role-modules/(:any)', 'RoleModuleController::getByRole/$1');
     $routes->post('role-modules/update', 'RoleModuleController::updateRoleModules');
 
+    // this is for test email
+    $routes->get('test-email', 'TestEmailController::index');
+
+
     // 🔹 Protected routes (JWT required)
     $routes->group('', ['filter' => 'auth'], function($routes) {
 
@@ -105,6 +109,15 @@ $routes->group('reports', function($routes) {
 $routes->get('notifications', 'NotificationController::index');
 $routes->get('notifications/unread-count', 'NotificationController::unreadCount');
 $routes->put('notifications/read/(:num)', 'NotificationController::markRead/$1');
+
+
+// this is for user punch in/out system
+
+// Attendance routes
+$routes->post('attendance/punch-in', 'AttendanceController::punchIn');
+$routes->post('attendance/punch-out', 'AttendanceController::punchOut');
+$routes->get('attendance/status/(:num)', 'AttendanceController::status/$1');
+$routes->get('attendance/report', 'AttendanceController::report');
 
 
     });
