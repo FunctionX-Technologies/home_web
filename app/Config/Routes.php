@@ -119,6 +119,15 @@ $routes->post('attendance/punch-out', 'AttendanceController::punchOut');
 $routes->get('attendance/status/(:num)', 'AttendanceController::status/$1');
 $routes->get('attendance/report', 'AttendanceController::report');
 
+// this is for monitoring system 
+$routes->group('monitor', ['filter' => 'auth'], function($routes) {
+    $routes->post('screenshot/upload', 'MonitorController::upload');
+    $routes->post('activity-log', 'MonitorController::logActivity');
+    $routes->get('reports/(:num)', 'MonitorController::getReports/$1');
+    $routes->get('summary/(:segment)', 'MonitorController::summary/$1');
+});
+
+
 
     });
 });
