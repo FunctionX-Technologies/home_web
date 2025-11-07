@@ -104,7 +104,7 @@ class ReportController extends ResourceController
         <th>Project Name</th>
         <th>Manager</th>
         <th>Status</th>
-        <th>Progress</th>
+        <th>developer</th>
         <th>Start Date</th>
         <th>End Date</th>
     </tr>

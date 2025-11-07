@@ -16,8 +16,8 @@ $routes->group('api', function($routes) {
     $routes->post('auth/register', 'AuthController::register'); 
 
     // 🔹 Role & Module Routes
-    $routes->get('modules', 'RoleModuleController::modules');
-    $routes->get('role-modules/(:any)', 'RoleModuleController::getByRole/$1');
+    $routes->post('modules', 'RoleModuleController::modules');
+    $routes->post('role-modules/(:any)', 'RoleModuleController::getByRole/$1');
     $routes->post('role-modules/update', 'RoleModuleController::updateRoleModules');
 
     // this is for test email
@@ -28,7 +28,7 @@ $routes->group('api', function($routes) {
     $routes->group('', ['filter' => 'auth'], function($routes) {
 
         // Example: Authenticated user detailshere
-        $routes->get('auth/me', 'AuthController::me');
+        $routes->post('auth/me', 'AuthController::me');
 
         // Example: admin-only (check inside controller)
         $routes->get('admin/users', 'UserController::index', ['filter' => 'auth']);
@@ -45,13 +45,13 @@ $routes->group('api', function($routes) {
 
         //update project priorities here
         $routes->put('projects/priority/update/(:num)', 'ProjectController::updatePriority/$1');
-        $routes->get('projects/priority/(:any)', 'ProjectController::getByPriority/$1');
+        $routes->post('projects/priority/(:any)', 'ProjectController::getByPriority/$1');
 
 
         // Task Management Routes (CRUD)
-        $routes->get('tasks', 'TaskController::index');                // All tasks
-        $routes->get('tasks/(:num)', 'TaskController::show/$1');       // Single task
-        $routes->get('tasks/developer/(:num)', 'TaskController::getByDeveloper/$1'); // Tasks by developer
+        $routes->post('tasks', 'TaskController::index');                // All tasks
+        $routes->post('tasks/(:num)', 'TaskController::show/$1');       // Single task
+        $routes->post('tasks/developer/(:num)', 'TaskController::getByDeveloper/$1'); // Tasks by developer
         $routes->post('tasks', 'TaskController::create');              // Create new task
         $routes->put('tasks/(:num)', 'TaskController::update/$1');     // Update
         $routes->delete('tasks/(:num)', 'TaskController::delete/$1');  // Delete
@@ -89,15 +89,15 @@ $routes->group('api', function($routes) {
     // Dashboard Routes
 
 
-$routes->get('dashboard/overview', 'DashboardController::overview');
-$routes->get('dashboard/productivity', 'DashboardController::productivityGraph');
-$routes->get('dashboard/project-progress', 'DashboardController::projectProgressGraph');
+$routes->post('dashboard/overview', 'DashboardController::overview');
+$routes->post('dashboard/productivity', 'DashboardController::productivityGraph');
+$routes->post('dashboard/project-progress', 'DashboardController::projectProgressGraph');
 
 // this is for report generation pf pdf and excel
 // Reports
 $routes->group('reports', function($routes) {
-    $routes->get('projects/excel', 'ReportController::exportProjectsExcel');
-    $routes->get('tasks/pdf', 'ReportController::exportTasksPDF');
+    $routes->post('projects/excel', 'ReportController::exportProjectsExcel');
+    $routes->post('tasks/pdf', 'ReportController::exportTasksPDF');
 });
 
 
@@ -106,8 +106,8 @@ $routes->group('reports', function($routes) {
 // here i add this for notification system
 
 // Notifications routes
-$routes->get('notifications', 'NotificationController::index');
-$routes->get('notifications/unread-count', 'NotificationController::unreadCount');
+$routes->post('notifications', 'NotificationController::index');
+$routes->post('notifications/unread-count', 'NotificationController::unreadCount');
 $routes->put('notifications/read/(:num)', 'NotificationController::markRead/$1');
 
 
